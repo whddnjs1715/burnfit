@@ -1,13 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import 'react-native-gesture-handler';
+
+function HomeScreen() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text>Home</Text>
+    </SafeAreaView>
+  );
+}
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text></Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <NavigationContainer></NavigationContainer>;
 }
 
 const styles = StyleSheet.create({
