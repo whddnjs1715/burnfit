@@ -1,12 +1,23 @@
-import { StyleSheet, SafeAreaView, Text } from 'react-native';
+import * as React from 'react';
+import { StyleSheet, SafeAreaView, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import 'react-native-gesture-handler';
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Home</Text>
+      <Text>Home1</Text>
+      <Button title="Go to Details" onPress={() => navigation.navigate('Details')} />
+    </SafeAreaView>
+  );
+}
+
+function DetailsScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text>Details Screen1</Text>
+      <Button title="Go to Details... again" onPress={() => navigation.navigate('Details')} />
     </SafeAreaView>
   );
 }
@@ -14,13 +25,20 @@ function HomeScreen() {
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return <NavigationContainer></NavigationContainer>;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
