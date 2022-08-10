@@ -5,7 +5,6 @@ import moment from 'moment';
 
 const CalendarApp = () => {
   const [date, setDate] = useState(new Date());
-  const curMon = format(date, 'M');
   const curYear = format(date, 'yyyy');
   const curMonName = format(date, 'LLLL');
   const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -72,7 +71,15 @@ const CalendarApp = () => {
                     .week(firstWeek + i)
                     .startOf('week')
                     .add(index, 'day');
-                  return (
+                  return moment().format('YYYYMMDD') === days.format('YYYYMMDD') ? (
+                    <View key={index} style={styles.weekToday}>
+                      <Text>{days.format('D')} </Text>
+                    </View>
+                  ) : days.format('MM') !== today.format('MM') ? (
+                    <View key={index} style={styles.notThisMonth}>
+                      <Text>{days.format('D')} </Text>
+                    </View>
+                  ) : (
                     <View key={index}>
                       <Text>{days.format('D')} </Text>
                     </View>
@@ -84,11 +91,6 @@ const CalendarApp = () => {
       </View>
     </>
   );
-};
-
-const calendarArr = () => {
-  let result = [];
-  return result;
 };
 
 const styles = StyleSheet.create({
@@ -109,6 +111,16 @@ const styles = StyleSheet.create({
   },
   saturdayText: {
     color: 'blue',
+  },
+  weekToday: {
+    borderRadius: '50%',
+    borderColor: 'blue',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notThisMonth: {
+    opacity: 0.4,
   },
 });
 
