@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BasicBody from '../components/body/BasicBody';
-import CalendarApp from '../components/body/CalendarApp';
+import CalendarApp from '../components/calendar/CalendarApp';
 
 function Mypage(props) {
   return (

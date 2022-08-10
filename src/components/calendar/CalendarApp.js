@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment';
 
-const CalendarApp = () => {
+function CalendarApp() {
   const [date, setDate] = useState(new Date());
   const curYear = format(date, 'yyyy');
   const curMonName = format(date, 'LLLL');
@@ -13,7 +13,6 @@ const CalendarApp = () => {
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
     today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
-
   return (
     <>
       <View style={styles.container}>
@@ -73,15 +72,33 @@ const CalendarApp = () => {
                     .add(index, 'day');
                   return moment().format('YYYYMMDD') === days.format('YYYYMMDD') ? (
                     <View key={index} style={styles.weekToday}>
-                      <Text>{days.format('D')} </Text>
+                      <Text
+                        onPress={() => {
+                          console.log(days.format('D'));
+                        }}
+                      >
+                        {days.format('D')}
+                      </Text>
                     </View>
                   ) : days.format('MM') !== today.format('MM') ? (
                     <View key={index} style={styles.notThisMonth}>
-                      <Text>{days.format('D')} </Text>
+                      <Text
+                        onPress={() => {
+                          console.log(days.format('D'));
+                        }}
+                      >
+                        {days.format('D')}
+                      </Text>
                     </View>
                   ) : (
                     <View key={index}>
-                      <Text>{days.format('D')} </Text>
+                      <Text
+                        onPress={() => {
+                          console.log(days.format('D'));
+                        }}
+                      >
+                        {days.format('D')}
+                      </Text>
                     </View>
                   );
                 })}
@@ -91,7 +108,7 @@ const CalendarApp = () => {
       </View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
