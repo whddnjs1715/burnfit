@@ -1,6 +1,6 @@
-import { addDays, format, getDate, isSameDay, startOfWeek } from 'date-fns';
-import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
+import { format } from 'date-fns';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment';
 
 const CalendarApp = () => {
@@ -8,18 +8,12 @@ const CalendarApp = () => {
   const curMon = format(date, 'M');
   const curYear = format(date, 'yyyy');
   const curMonName = format(date, 'LLLL');
-  const dayFirst = new Date(date.getFullYear(), 0, 1);
-  const dayLast = new Date(date.getFullYear(), curMon, 0);
-  const countFirDays = Math.floor((date - dayFirst) / (24 * 60 * 60 * 1000)) - 1;
-  const countLastDays = Math.floor((dayLast - dayFirst) / (24 * 60 * 60 * 1000));
-  const firstWeek = Math.ceil((date.getDay() + countFirDays) / 7) - 1;
-  const lastWeek =
-    Math.ceil((date.getDay() + 1 + countLastDays) / 7) + 1 === 1
-      ? 53
-      : Math.ceil((date.getDay() + 1 + countLastDays) / 7) + 1;
   const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const [getMoment, setMoment] = useState(moment());
   const today = getMoment;
+  const firstWeek = today.clone().startOf('month').week();
+  const lastWeek =
+    today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
 
   return (
     <>
@@ -27,6 +21,7 @@ const CalendarApp = () => {
         <TouchableOpacity
           onPress={() => {
             setDate(new Date(date.setMonth(date.getMonth() - 1)));
+            setMoment(getMoment.clone().subtract(1, 'month'));
           }}
         >
           <Text>Previous</Text>
@@ -37,6 +32,7 @@ const CalendarApp = () => {
         <TouchableOpacity
           onPress={() => {
             setDate(new Date(date.setMonth(date.getMonth() + 1)));
+            setMoment(getMoment.clone().add(1, 'month'));
           }}
         >
           <Text>Next</Text>
@@ -64,9 +60,9 @@ const CalendarApp = () => {
         })}
       </View>
       <View>
-        {[...Array(lastWeek - firstWeek)].map((item, i) => {
+        {[...Array(lastWeek - firstWeek + 1)].map((item, i) => {
           return (
-            <View style={styles.container}>
+            <View key={i} style={styles.container}>
               {Array(7)
                 .fill(0)
                 .map((data, index) => {
@@ -77,8 +73,8 @@ const CalendarApp = () => {
                     .startOf('week')
                     .add(index, 'day');
                   return (
-                    <View>
-                      <Text key={index}>{days.format('D')} </Text>
+                    <View key={index}>
+                      <Text>{days.format('D')} </Text>
                     </View>
                   );
                 })}
