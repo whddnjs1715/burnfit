@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 function BasicBody(props) {
   return (
