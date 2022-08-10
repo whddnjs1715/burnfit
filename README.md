@@ -35,8 +35,8 @@ src
  ┃  ┣ calendar
  ┃  ┃  ┗ CalendarApp.js
  ┣ navigations
- ┃  ┗ DetailPage.js
- ┃  ┗ ListPage.js
+ ┃  ┣ MyTabs.js
+ ┃  ┗ TabComponent.js
  ┗ App.js
 
 ```
