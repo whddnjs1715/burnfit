@@ -23,3 +23,20 @@
 [test] : 테스트 코드 수정 및 변경
 [chore] : 그 외 사소한 변경
 ```
+
+## 📝 폴더구조
+
+```bash
+src
+ ┃
+ ┣ components
+ ┃  ┣ body
+ ┃  ┃  ┗ BasicBody.js
+ ┃  ┣ calendar
+ ┃  ┃  ┗ CalendarApp.js
+ ┣ navigations
+ ┃  ┗ DetailPage.js
+ ┃  ┗ ListPage.js
+ ┗ App.js
+
+```
