@@ -13,6 +13,9 @@ function CalendarApp() {
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
     today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
+  const curDay = moment().format('YYYYMMDD');
+  const [selectedDay, setSelectedDay] = useState(curDay);
+  const [isTrue, SetIsTrue] = useState(true);
   return (
     <>
       <View style={styles.container}>
@@ -41,15 +44,15 @@ function CalendarApp() {
           return (
             <View key={week[index]} style={styles.weekItem}>
               {week[index] == 'Sun' ? (
-                <Text key={week[index]} style={styles.sundayText}>
+                <Text key={week[index]} style={styles.sundayText} className={week[index]}>
                   {week[index]}
                 </Text>
               ) : week[index] == 'Sat' ? (
-                <Text key={week[index]} style={styles.saturdayText}>
+                <Text key={week[index]} style={styles.saturdayText} className={week[index]}>
                   {week[index]}
                 </Text>
               ) : (
-                <Text key={week[index]} style={styles.weekdayText}>
+                <Text key={week[index]} style={styles.weekdayText} className={week[index]}>
                   {week[index]}
                 </Text>
               )}
@@ -71,15 +74,39 @@ function CalendarApp() {
                     .startOf('week')
                     .add(index, 'day');
                   return moment().format('YYYYMMDD') === days.format('YYYYMMDD') ? (
-                    <View key={index} style={styles.weekToday}>
-                      <Text
-                        onPress={() => {
-                          console.log(days.format('D'));
-                        }}
-                      >
-                        {days.format('D')}
-                      </Text>
-                    </View>
+                    selectedDay == days.format('YYYYMMDD') ? (
+                      <View key={index} style={styles.weekToday}>
+                        <Text
+                          onPress={() => {
+                            setSelectedDay(days.format('D'));
+                            SetIsTrue(true);
+                          }}
+                        >
+                          {days.format('D')}
+                        </Text>
+                      </View>
+                    ) : isTrue ? (
+                      <View key={index} style={styles.weekToday.todo}>
+                        <Text
+                          onPress={() => {
+                            setSelectedDay(days.format('YYYYMMDD'));
+                          }}
+                        >
+                          {days.format('D')}
+                        </Text>
+                      </View>
+                    ) : (
+                      <View key={index} style={styles.weekToday}>
+                        <Text
+                          onPress={() => {
+                            setSelectedDay(days.format('YYYYMMDD'));
+                            SetIsTrue(true);
+                          }}
+                        >
+                          {days.format('D')}
+                        </Text>
+                      </View>
+                    )
                   ) : days.format('MM') !== today.format('MM') ? (
                     <View key={index} style={styles.notThisMonth}>
                       <Text
@@ -90,11 +117,23 @@ function CalendarApp() {
                         {days.format('D')}
                       </Text>
                     </View>
-                  ) : (
-                    <View key={index}>
+                  ) : selectedDay == days.format('YYYYMMDD') ? (
+                    <View key={index} style={styles.weekToday.todo}>
                       <Text
                         onPress={() => {
                           console.log(days.format('D'));
+                          setSelectedDay(days.format('D'));
+                          SetIsTrue(false);
+                        }}
+                      >
+                        {days.format('D')}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View key={index} style={styles.weekToday}>
+                      <Text
+                        onPress={() => {
+                          setSelectedDay(days.format('YYYYMMDD'));
                         }}
                       >
                         {days.format('D')}
@@ -130,14 +169,23 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   weekToday: {
-    borderRadius: '50%',
-    borderColor: 'blue',
-    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    todo: {
+      borderRadius: '50%',
+      borderColor: 'blue',
+      borderWidth: 1,
+    },
   },
   notThisMonth: {
     opacity: 0.4,
+  },
+  noToday: {
+    todo: {
+      borderRadius: '50%',
+      borderColor: 'blue',
+      borderWidth: 1,
+    },
   },
 });
 
