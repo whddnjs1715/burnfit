@@ -5,11 +5,11 @@
 ## ✨ 프로젝트 실행 방법
 
 ```bash
-# 설치방법
+# install dependencies
  $ yarn install
 
-# 실행방법
- $ yarn start
+# serve with hot reload at localhost:19006
+ $ expo start
 ```
 
 ## ✨ Coding Convention
