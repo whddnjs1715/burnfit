@@ -40,3 +40,13 @@ src
  ┗ App.js
 
 ```
+
+## 📝 실행 영상
+
+<video src="https://user-images.githubusercontent.com/73818206/184046006-bc2fe2c4-4a31-4e31-88ec-520f3ec0065f.mov" width="50%" height="100%"/>
+
+
+
+
+
+
